@@ -1,16 +1,11 @@
-// post.model.ts
-import { Schema, Document } from 'mongoose';
+// posts/post.model.ts
 
-export interface Post extends Document {
-  title: string;
-  content: string;
-}
+import { Schema } from 'mongoose';
+import { CommentSchema } from '../comments/comment.schema';
 
-export const PostSchema = new Schema<Post>(
-  {
-    _id: { type: Schema.Types.ObjectId, auto: true }, // Definir explícitamente _id como ObjectId
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-  },
-  { timestamps: true },
-); // Añadir timestamps para createdAt y updatedAt
+export const PostSchema = new Schema({
+  id: { type: String, required: true },
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  comments: [CommentSchema],
+});
